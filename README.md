@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a Retrieval-Augmented Generation (RAG) system designed to search through policies and provide accurate answers to user queries. The system uses the Google Gemini 2.0 Flash model with vector search to retrieve relevant information from policy documents.
+This is a Retrieval-Augmented Generation (RAG) system designed to answer questions using information from various documents. The system uses the Google Gemini 2.0 Flash model with vector search to retrieve relevant information from the document collection and provide accurate answers to user queries.
 
 ## Project Structure
 
@@ -12,7 +12,7 @@ This is a Retrieval-Augmented Generation (RAG) system designed to search through
 - `logger.py` - Logging configuration
 - `config.py` - Configuration settings
 - `.env` - Environment variables
-- `data/` - Directory containing policy documents (PDF, DOCX, TXT)
+- `data/` - Directory containing documents (PDF, DOCX, TXT)
 - `logs/` - Directory for log files (created automatically)
 - `requirements.txt` - Project dependencies
 - `websiteParser.py`, `url_extractor.py`, `content_extractor_from_urls.py`, `run_scraper.py` - Web scraping utilities
@@ -57,9 +57,9 @@ Create or update your `.env` file with your Google API key:
 GOOGLE_API_KEY=your_google_api_key
 ```
 
-5. **Prepare your policy documents**
+5. **Prepare your documents**
 
-Place your policy documents in the `data/` directory. The system supports:
+Place your documents in the `data/` directory. The system supports:
 - PDF files (.pdf)
 - Word documents (.docx)
 - Text files (.txt)
@@ -88,7 +88,7 @@ You can test the API with a tool like curl or Postman:
 ```bash
 curl -X POST http://localhost:3000/generate \
   -H "Content-Type: application/json" \
-  -d '{"query":"What is the health insurance deductible?"}'
+  -d '{"query":"What information can you provide about this topic?"}'
 ```
 
 ## API Endpoints
@@ -96,7 +96,7 @@ curl -X POST http://localhost:3000/generate \
 - **POST `/generate`**
   - Request body: `{"query": "your question here"}`
   - Response: `{"answer": "response from the model"}`
-  - Used to ask questions about policies
+  - Used to ask questions about the content in your documents
 
 - **GET `/health`**
   - Response: `{"status": "healthy", "timestamp": "2024-04-17T18:00:00.000000"}`
@@ -126,6 +126,7 @@ The RAG pipeline includes:
 - History-aware retriever that reformulates user questions
 - Document retriever that finds relevant information
 - LLM that generates answers based on retrieved context
+- Will respond with "I don't know" when information is not found in the context
 
 ### 4. Logging (`logger.py`)
 
@@ -140,7 +141,7 @@ The project includes tools to scrape content from websites for use in the RAG sy
 ### Using the Web Scraper
 
 ```bash
-python run_scraper.py --url "https://example.com/policies" --depth 3 --delay 2.0 --output "./data"
+python run_scraper.py --url "https://example.com/content" --depth 3 --delay 2.0 --output "./data"
 ```
 
 Parameters:
