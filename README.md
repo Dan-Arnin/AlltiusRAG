@@ -17,6 +17,10 @@ This is a Retrieval-Augmented Generation (RAG) system designed to answer questio
 - `requirements.txt` - Project dependencies
 - `websiteParser.py`, `url_extractor.py`, `content_extractor_from_urls.py`, `run_scraper.py` - Web scraping utilities
 
+## Try it yourself:
+
+https://alltiusui.streamlit.app/
+
 ## System Architecture
 
 ### 1. RAG Architecture
@@ -414,11 +418,14 @@ The scraper generates these output files:
 
 6. **Docker Deployment**: When deploying with Docker, make sure to correctly mount volumes for the `data/` and `logs/` directories.
 
-## Advanced Configuration
+## Hosting:
 
-You can adjust several parameters in the code:
+The UI has been hosted on streamlit for ease of access and deployment
 
-- `MAX_WORKERS`: Controls the number of concurrent threads (default: 4)
-- Chunk size and overlap in `RecursiveCharacterTextSplitter` (default: 1200/300)
-- Retriever search parameters (default k=30)
-- Server port (default: 3000)
+![image](https://github.com/user-attachments/assets/7283927b-8d0e-4570-86f2-dd2307b03520)
+
+Testing URL: https://alltiusui.streamlit.app/
+
+The backend has been hosted on Railway
+
+![image](https://github.com/user-attachments/assets/82def2ea-c0df-4411-bfea-77996b5610a1)
