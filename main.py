@@ -23,15 +23,27 @@ import uvicorn
 
 load_dotenv()
 
-logger = setup_logger()
-logger.setLevel(logging.INFO)
+# Ensure data directory exists
+os.makedirs(config.DIRECTORY, exist_ok=True)
 
-# Add a stream handler to output logs to the console
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
+# Set up logging
+try:
+    logger = setup_logger()
+    logger.setLevel(logging.INFO)
+
+    # Add a stream handler to output logs to the console
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+except Exception as e:
+    print(f"Error setting up logger: {str(e)}")
+    # Fallback to basic logging
+    logging.basicConfig(level=logging.INFO, 
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger('Fallback')
+    logger.warning(f"Using fallback logger due to error: {str(e)}")
 
 # Configure thread pool for concurrent processing
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "4"))  # Default to 4 workers

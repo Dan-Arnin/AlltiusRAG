@@ -13,6 +13,7 @@ This is a Retrieval-Augmented Generation (RAG) system designed to search through
 - `config.py` - Configuration settings
 - `.env` - Environment variables
 - `data/` - Directory containing policy documents (PDF, DOCX, TXT)
+- `logs/` - Directory for log files (created automatically)
 - `requirements.txt` - Project dependencies
 - `websiteParser.py`, `url_extractor.py`, `content_extractor_from_urls.py`, `run_scraper.py` - Web scraping utilities
 
@@ -68,6 +69,8 @@ You can either:
 - Manually copy documents to the data directory, or
 - Use the included web scraping tools to gather content (see Web Scraping section)
 
+Note: The `data/` and `logs/` directories will be created automatically if they don't exist.
+
 ## Running the Application
 
 1. **Start the API server**
@@ -76,14 +79,14 @@ You can either:
 python main.py
 ```
 
-The server will start on http://0.0.0.0:3006 by default.
+The server will start on http://0.0.0.0:3000 by default.
 
 2. **Test the API**
 
 You can test the API with a tool like curl or Postman:
 
 ```bash
-curl -X POST http://localhost:3006/generate \
+curl -X POST http://localhost:3000/generate \
   -H "Content-Type: application/json" \
   -d '{"query":"What is the health insurance deductible?"}'
 ```
@@ -170,6 +173,10 @@ The scraper generates these output files:
 
 4. **Memory Issues**: Large documents may require more memory. Consider adjusting chunk sizes in the code if you encounter memory problems.
 
+5. **File Permissions**: Ensure that the application has write permissions for the `logs/` directory to create log files.
+
+6. **Docker Deployment**: When deploying with Docker, make sure to correctly mount volumes for the `data/` and `logs/` directories.
+
 ## Advanced Configuration
 
 You can adjust several parameters in the code:
@@ -177,4 +184,4 @@ You can adjust several parameters in the code:
 - `MAX_WORKERS`: Controls the number of concurrent threads (default: 4)
 - Chunk size and overlap in `RecursiveCharacterTextSplitter` (default: 1200/300)
 - Retriever search parameters (default k=30)
-- Server port (default: 3006)
+- Server port (default: 3000)
