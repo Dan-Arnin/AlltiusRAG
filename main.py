@@ -40,7 +40,7 @@ logger.info(f"Configured thread pool with {MAX_WORKERS} workers")
 
 logger.info("Starting the application")
 app = FastAPI(title="DMCC Policy Search API", 
-              description="API for searching DMCC policies using RAG with LLM", 
+              description="API for searching policies using RAG with LLM", 
               version="1.0.0")
 
 # Add CORS middleware

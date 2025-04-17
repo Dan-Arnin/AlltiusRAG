@@ -1,8 +1,8 @@
-# DMCC Policy Search - Documentation
+# Policy Search - Documentation
 
 ## Overview
 
-This is a Retrieval-Augmented Generation (RAG) system designed to search through DMCC policies and provide accurate answers to user queries. The system uses the Google Gemini 2.0 Flash model with vector search to retrieve relevant information from policy documents.
+This is a Retrieval-Augmented Generation (RAG) system designed to search through policies and provide accurate answers to user queries. The system uses the Google Gemini 2.0 Flash model with vector search to retrieve relevant information from policy documents.
 
 ## Project Structure
 
@@ -93,7 +93,7 @@ curl -X POST http://localhost:3006/generate \
 - **POST `/generate`**
   - Request body: `{"query": "your question here"}`
   - Response: `{"answer": "response from the model"}`
-  - Used to ask questions about DMCC policies
+  - Used to ask questions about policies
 
 - **GET `/health`**
   - Response: `{"status": "healthy", "timestamp": "2024-04-17T18:00:00.000000"}`
